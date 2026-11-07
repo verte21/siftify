@@ -659,7 +659,7 @@ final class FlowStore {
 
     func chooseFolderPanel() {
         let panel = NSOpenPanel()
-        panel.title = "Choose a Folder to Tidy"
+        panel.title = "Choose a Folder to Sift"
         panel.canChooseFiles = false
         panel.canChooseDirectories = true
         panel.allowsMultipleSelection = false
@@ -792,7 +792,7 @@ final class FlowStore {
             scanProgressCurrent = 0
             scanProgressTotal = max(1, totalTopLevelFilesInFolder)
             currentScanningFilename = "Preparing folder…"
-            currentScanningClue = "Reading loose files safely on your \(localChipName)"
+            currentScanningClue = "Inspecting loose files…"
             currentScanningPath = folderSnapshot.path
             stage = .scanning
         }
@@ -823,7 +823,7 @@ final class FlowStore {
                         self.isScanning = false
                         self.stage = .pickFolder
                     }
-                    self.showToast("\(folderSnapshot.lastPathComponent) already looks tidy — no loose files found!", isError: false)
+                    self.showToast("\(folderSnapshot.lastPathComponent) is already organized — no loose files found!", isError: false)
                 }
                 return
             }
@@ -1034,7 +1034,7 @@ final class FlowStore {
         refreshCandidateCount()
     }
 
-    func undoLastTidy() {
+    func undoLastSift() {
         loadUndoHistory()
         guard let batch = lastUndoBatch else {
             showToast("Nothing recent to undo.", isError: true)

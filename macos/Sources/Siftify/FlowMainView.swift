@@ -157,7 +157,7 @@ struct FlowMainView: View {
 
             if let undo = store.lastUndoBatch, !store.isScanning {
                 Button {
-                    store.undoLastTidy()
+                    store.undoLastSift()
                 } label: {
                     HStack(spacing: 6) {
                         Image(systemName: "arrow.uturn.backward")
@@ -482,12 +482,12 @@ struct FlowHomeStageView: View {
 
     private var portalHeadline: String {
         if isDropTargeted {
-            return "Drop Folder to Tidy It"
+            return "Drop Folder to Sift"
         }
         if let folderURL = store.targetFolderURL {
-            return "Tidy up \(folderURL.lastPathComponent)"
+            return "Sift \(folderURL.lastPathComponent)"
         }
-        return "Pick or Drop a Folder to Tidy"
+        return "Pick or Drop a Folder to Sift"
     }
 
     private var portalSubtitle: String {
@@ -660,72 +660,48 @@ struct FlowHomeStageView: View {
                     .foregroundStyle(.white.opacity(0.54))
             }
 
-            // Primary Action CTA + Explicit On-Device Reassurance Strip
-            VStack(spacing: 11) {
-                if store.targetFolderURL == nil {
-                    Button {
-                        store.chooseFolderPanel()
-                    } label: {
-                        HStack(spacing: 9) {
-                            Image(systemName: "folder.badge.plus")
-                                .font(.system(size: 15, weight: .bold))
-                            Text("Choose a Folder to Tidy…")
-                                .font(.system(size: 15.5, weight: .bold, design: .rounded))
-                        }
-                        .padding(.horizontal, 30)
-                        .padding(.vertical, 13)
-                    }
-                    .buttonStyle(
-                        GlowActionButtonStyle(
-                            accent: Color(red: 0.26, green: 0.56, blue: 0.98),
-                            secondaryAccent: Color(red: 0.14, green: 0.80, blue: 0.72)
-                        )
-                    )
-                } else {
-                    Button {
-                        store.startPreviewScan()
-                    } label: {
-                        HStack(spacing: 9) {
-                            Image(systemName: "wand.and.stars")
-                                .font(.system(size: 15, weight: .bold))
-                            Text("Preview Cleanup")
-                                .font(.system(size: 15.5, weight: .bold, design: .rounded))
-                        }
-                        .padding(.horizontal, 34)
-                        .padding(.vertical, 13)
-                    }
-                    .buttonStyle(
-                        GlowActionButtonStyle(
-                            accent: Color(red: 0.26, green: 0.56, blue: 0.98),
-                            secondaryAccent: Color(red: 0.14, green: 0.80, blue: 0.72)
-                        )
-                    )
-                    .disabled(store.totalTopLevelFilesInFolder == 0)
-                    .opacity(store.totalTopLevelFilesInFolder == 0 ? 0.45 : 1.0)
-                    .keyboardShortcut(.return, modifiers: [.command])
-                }
-
+            // Primary Action CTA
+            if store.targetFolderURL == nil {
                 Button {
-                    withAnimation(.spring(response: 0.38, dampingFraction: 0.82)) {
-                        store.showPrivacySheet = true
-                    }
+                    store.chooseFolderPanel()
                 } label: {
-                    HStack(spacing: 6) {
-                        Image(systemName: "lock.shield.fill")
-                            .font(.system(size: 11, weight: .semibold))
-                            .foregroundStyle(Color(red: 0.20, green: 0.88, blue: 0.58))
-                        Text("Runs 100% on your \(store.localChipName) · Works with Wi-Fi off · Files never leave this Mac")
-                            .font(.system(size: 11.5, weight: .medium))
-                            .foregroundStyle(.white.opacity(0.62))
+                    HStack(spacing: 9) {
+                        Image(systemName: "folder.badge.plus")
+                            .font(.system(size: 15, weight: .bold))
+                        Text("Choose a Folder to Sift…")
+                            .font(.system(size: 15.5, weight: .bold, design: .rounded))
                     }
-                    .padding(.horizontal, 13)
-                    .padding(.vertical, 5)
-                    .background(
-                        Capsule(style: .continuous)
-                            .fill(Color.white.opacity(0.04))
-                    )
+                    .padding(.horizontal, 30)
+                    .padding(.vertical, 13)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(
+                    GlowActionButtonStyle(
+                        accent: Color(red: 0.26, green: 0.56, blue: 0.98),
+                        secondaryAccent: Color(red: 0.14, green: 0.80, blue: 0.72)
+                    )
+                )
+            } else {
+                Button {
+                    store.startPreviewScan()
+                } label: {
+                    HStack(spacing: 9) {
+                        Image(systemName: "wand.and.stars")
+                            .font(.system(size: 15, weight: .bold))
+                        Text("Sift & Preview")
+                            .font(.system(size: 15.5, weight: .bold, design: .rounded))
+                    }
+                    .padding(.horizontal, 34)
+                    .padding(.vertical, 13)
+                }
+                .buttonStyle(
+                    GlowActionButtonStyle(
+                        accent: Color(red: 0.26, green: 0.56, blue: 0.98),
+                        secondaryAccent: Color(red: 0.14, green: 0.80, blue: 0.72)
+                    )
+                )
+                .disabled(store.totalTopLevelFilesInFolder == 0)
+                .opacity(store.totalTopLevelFilesInFolder == 0 ? 0.45 : 1.0)
+                .keyboardShortcut(.return, modifiers: [.command])
             }
 
             Spacer(minLength: 6)
@@ -824,18 +800,13 @@ struct FlowScanningStageView: View {
             }
 
             VStack(spacing: 6) {
-                Text("Reading & Sorting \(store.selectedFolderDisplayName)…")
+                Text("Sifting \(store.selectedFolderDisplayName)…")
                     .font(.system(size: 21, weight: .bold, design: .rounded))
                     .foregroundStyle(.white)
 
-                HStack(spacing: 6) {
-                    Image(systemName: "lock.shield.fill")
-                        .font(.system(size: 11.5, weight: .semibold))
-                        .foregroundStyle(Color(red: 0.20, green: 0.88, blue: 0.58))
-                    Text("Inspecting files right on your \(store.localChipName) — zero internet used")
-                        .font(.system(size: 12.5, weight: .medium))
-                        .foregroundStyle(.white.opacity(0.66))
-                }
+                Text("Reading text, images, and metadata — nothing has moved yet.")
+                    .font(.system(size: 12.5, weight: .medium))
+                    .foregroundStyle(.white.opacity(0.62))
             }
 
             // Active File Glass Card with Sweeping Light Beam
@@ -1012,21 +983,16 @@ struct FlowReviewStageView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(
                     store.willMoveCount > 0
-                        ? "Ready to tidy \(store.willMoveCount) file\(store.willMoveCount == 1 ? "" : "s") in \(store.selectedFolderDisplayName)"
+                        ? "Ready to sift \(store.willMoveCount) file\(store.willMoveCount == 1 ? "" : "s") in \(store.selectedFolderDisplayName)"
                         : "All files are set to stay in place"
                 )
                 .font(.system(size: 22, weight: .bold, design: .rounded))
                 .foregroundStyle(.white)
                 .contentTransition(.numericText())
 
-                HStack(spacing: 5) {
-                    Image(systemName: "lock.shield.fill")
-                        .font(.system(size: 11, weight: .semibold))
-                        .foregroundStyle(Color(red: 0.20, green: 0.88, blue: 0.58))
-                    Text("Sorted 100% offline on your \(store.localChipName) — click any stack to inspect files before moving.")
-                        .font(.system(size: 12.5))
-                        .foregroundStyle(.white.opacity(0.66))
-                }
+                Text("Nothing has moved yet — click any folder stack to inspect or change individual files.")
+                    .font(.system(size: 12.5))
+                    .foregroundStyle(.white.opacity(0.62))
             }
 
             Spacer()
@@ -1433,7 +1399,7 @@ struct FlowCompletedStageView: View {
                 }
 
                 VStack(spacing: 7) {
-                    Text("\(summary.rootFolderName) is nice and tidy!")
+                    Text("\(summary.rootFolderName) is all sorted!")
                         .font(.system(size: 26, weight: .bold, design: .rounded))
                         .foregroundStyle(.white)
 
@@ -1502,7 +1468,7 @@ struct FlowCompletedStageView: View {
 
                     if store.lastUndoBatch != nil {
                         Button {
-                            store.undoLastTidy()
+                            store.undoLastSift()
                         } label: {
                             HStack(spacing: 6) {
                                 Image(systemName: "arrow.uturn.backward")
@@ -1519,7 +1485,7 @@ struct FlowCompletedStageView: View {
                     Button {
                         store.returnToHome()
                     } label: {
-                        Text("Tidy Another Folder")
+                        Text("Sift Another Folder")
                             .font(.system(size: 13, weight: .semibold))
                             .padding(.horizontal, 18)
                             .padding(.vertical, 11)

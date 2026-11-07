@@ -81,9 +81,9 @@ struct FlowMenuBarView: View {
 
             if let undo = store.lastUndoBatch {
                 Button {
-                    store.undoLastTidy()
+                    store.undoLastSift()
                 } label: {
-                    Label("Undo Last Tidy (\(undo.moves.count))", systemImage: "arrow.uturn.backward")
+                    Label("Undo Last Sift (\(undo.moves.count))", systemImage: "arrow.uturn.backward")
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .buttonStyle(.bordered)
