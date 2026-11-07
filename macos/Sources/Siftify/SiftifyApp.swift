@@ -75,7 +75,8 @@ struct SiftifyApp: App {
     var body: some Scene {
         Window("Siftify", id: "siftify-main") {
             FlowMainView(store: store)
-                .frame(minWidth: 820, minHeight: 580)
+                .frame(minWidth: 820, minHeight: 600)
+                .ignoresSafeArea(.container, edges: .top)
                 .onAppear {
                     appDelegate.store = store
                     appDelegate.openMainWindow = { [openWindow] in

@@ -6,6 +6,10 @@ Most folder cleaners only look at file extensions — so `IMG_9042.png`, `scan_0
 
 **Siftify** inspects what is *inside* each loose file directly on your Mac (with zero cloud calls and zero internet required), routes confident matches into clean folders & subfolders, and **leaves ambiguous files safely untouched** instead of guessing.
 
+<p align="center">
+  <img src="./docs/screenshots/siftify-glass.png" alt="Siftify Liquid Glass macOS App Preview" width="880" />
+</p>
+
 ---
 
 ## Highlights
@@ -97,6 +101,9 @@ bun run sift --undo
 
 ```text
 siftify/
+├── docs/
+│   └── screenshots/
+│       └── siftify-glass.png # Retina Liquid Glass folder stacks preview
 ├── macos/
 │   ├── Resources/CALIBRATION.llamacpp.json
 │   └── Sources/

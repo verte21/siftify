@@ -16,7 +16,7 @@ struct FlowMainView: View {
 
             VStack(spacing: 0) {
                 topHeaderBar
-                    .padding(.top, 10)
+                    .padding(.top, 12)
                     .padding(.horizontal, 22)
                     .padding(.bottom, 8)
 
@@ -64,6 +64,7 @@ struct FlowMainView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+            .ignoresSafeArea(.container, edges: .top)
 
             if let toast = store.toastMessage {
                 VStack {
@@ -105,6 +106,7 @@ struct FlowMainView: View {
                 .zIndex(50)
             }
         }
+        .ignoresSafeArea(.container, edges: .top)
         .preferredColorScheme(.dark)
         .onDrop(of: [UTType.fileURL], isTargeted: $isDropTargeted) { providers in
             guard let first = providers.first else { return false }
@@ -970,6 +972,7 @@ struct FlowReviewStageView: View {
                 .padding(.top, 4)
                 .padding(.bottom, 22)
             }
+            .scrollIndicators(.hidden)
 
             bottomFloatingDock
                 .padding(.horizontal, 28)
