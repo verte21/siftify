@@ -1,0 +1,75 @@
+{
+  "engineUrl" : "http://127.0.0.1:8765",
+  "costs" : {
+    "defer" : 1,
+    "wrong" : 2.2
+  },
+  "folders" : {
+    "3d_prints" : {
+      "description" : "3D printable models and CAD files (.stl, .3mf, .step, .gcode) from Printables, Thingiverse, MakerWorld, or CAD tools",
+      "path" : "3D Prints & CAD"
+    },
+    "code_configs" : {
+      "description" : "Source code scripts, JSON/YAML/TOML configs, SQL dumps, CSV datasets, and developer logs (excluding Betaflight dumps and office spreadsheets)",
+      "path" : "Code & Data"
+    },
+    "documents_notes" : {
+      "description" : "Word (.docx/.doc/.rtf) documents, PDFs, Markdown notes, articles, manuals, guides, contracts, boarding passes/tickets, resumes/CVs, ebooks, presentations, and spreadsheets",
+      "enabled" : true,
+      "path" : "Documents",
+      "subCostWrong" : 1.8,
+      "subfolders" : {
+        "career_resumes" : {
+          "description" : "CVs, resumes, cover letters, diplomas, certificates, transcripts, and job descriptions",
+          "enabled" : true,
+          "path" : "Career & Resumes"
+        },
+        "contracts_official" : {
+          "description" : "Leases, contracts, NDAs, legal agreements, terms, government/bank/insurance letters, and official administrative forms",
+          "path" : "Contracts & Official"
+        },
+        "decks_sheets" : {
+          "description" : "Slide presentations (.pptx, .key, pitch decks), spreadsheets (.xlsx, .numbers, budget/tracker tables), and structured business reports",
+          "path" : "Decks & Sheets"
+        },
+        "manuals_guides" : {
+          "description" : "Hardware/product user manuals, datasheets, technical specifications, setup instructions, and how-to reference guides",
+          "path" : "Manuals & Guides"
+        },
+        "notes" : {
+          "description" : "Personal Markdown/text notes, meeting minutes, checklists, scratchpad drafts, and short writeups",
+          "path" : "Notes"
+        },
+        "papers_books" : {
+          "description" : "Academic research papers (arXiv, DOI, abstract/citations), whitepapers, ebooks (.epub or multi-chapter books), textbooks, and long-form articles",
+          "path" : "Papers & Books"
+        },
+        "tickets_travel" : {
+          "description" : "Boarding passes, flight/train/event tickets, hotel bookings, travel itineraries, and reservation passes",
+          "enabled" : true,
+          "path" : "Tickets & Travel"
+        }
+      }
+    },
+    "fpv_hobby" : {
+      "description" : "Hobby RC FPV quadcopter files: Betaflight CLI diff/dump backups, Blackbox logs (.bbl/.bfl), BetaFPV flight controller wiring/pinout diagrams, ELRS/Bluejay firmware, and FPV OSD flight clips",
+      "path" : "FPV & Betaflight"
+    },
+    "installers_archives" : {
+      "description" : "macOS app installers (.dmg, .pkg), general software .zip/.tar.gz archives, and system utilities",
+      "path" : "Installers & Archives"
+    },
+    "invoices_finance" : {
+      "description" : "Paid/unpaid invoices, payment receipts, Stripe/PayPal billing statements, tax returns, bank statements, and purchase order confirmations",
+      "path" : "Finance & Invoices"
+    },
+    "media_photos" : {
+      "description" : "Personal camera photos, wallpapers, memes, music/audio recordings, and general non-FPV videos",
+      "path" : "Photos & Media"
+    },
+    "screenshots_ui" : {
+      "description" : "General app/UI screenshots, terminal/error screen captures, chat snippets, and web page captures (excluding invoices, tickets, or FPV pinout diagrams)",
+      "path" : "Screenshots & Snips"
+    }
+  }
+}

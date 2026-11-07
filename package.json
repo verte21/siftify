@@ -1,0 +1,24 @@
+{
+  "name": "siftify",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "description": "100% offline macOS file & folder organizer powered by Apple Vision, PDFKit, Spotlight provenance, and local Apple Silicon Metal classifiers",
+  "scripts": {
+    "setup": "bash scripts/setup-mlx.sh",
+    "build:swift": "mkdir -p bin && swiftc -O swift/FileXRay.swift -o bin/file-xray",
+    "build:app": "bash scripts/build-app.sh",
+    "app": "bash scripts/build-app.sh && (pkill -x Siftify || true) && open build/Siftify.app",
+    "flow": "bun run app",
+    "build:pro": "bash scripts/build-pro-app.sh",
+    "pro": "bash scripts/build-pro-app.sh && (pkill -x SiftifyPro || true) && open build/SiftifyPro.app",
+    "serve": "bash scripts/serve-mlx.sh",
+    "sift": "bun run src/cli.ts",
+    "tidy": "bun run src/cli.ts",
+    "demo": "bun run src/demo.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "typescript": "^5.8.2"
+  }
+}

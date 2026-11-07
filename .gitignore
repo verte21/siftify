@@ -1,0 +1,14 @@
+.venv/
+node_modules/
+bin/
+build/
+macos/.build/
+demo-inbox/
+.siftify-history/
+.tidy-history/
+.env
+.env.*
+*.pem
+*.key
+*.log
+.DS_Store
